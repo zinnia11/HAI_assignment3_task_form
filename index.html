@@ -30,9 +30,9 @@
     button:hover {
       background-color: #bbb;
     }
-    .label_button:active {
-        border-color: #3c87ff;
-        border-width: 4px;
+    .label_button:focus {
+        outline: none; 
+        border: 3px solid #3c87ff;
         color: #ffffff;
     }
     .next_button {
@@ -81,7 +81,7 @@
     }
     #intro, #ending {
       text-align: center;
-      max-width: 600px;
+      max-width: 750px;
       margin: 100px auto;
     }
     #intro button {
@@ -123,9 +123,9 @@
 
     <div class="bottom">
       <h3>Please label the stress level you believe this student is experiencing:</h3>
-      <button class="label_button" data-label="Low Stress">Low Stress</button>
-      <button class="label_button" data-label="Medium Stress">Medium Stress</button>
-      <button class="label_button" data-label="High Stress">High Stress</button>
+      <button class="label_button" data-label="0">Low Stress</button>
+      <button class="label_button" data-label="1">Medium Stress</button>
+      <button class="label_button" data-label="2">High Stress</button>
     </div>
 
     <div class="next_q">
@@ -143,6 +143,7 @@
 
   <script>
     const start_button = document.getElementById('start_button');
+    const label_buttons = document.querySelectorAll('.label_button');
     const next_button = document.getElementById('next_button');
     const introDiv = document.getElementById('intro');
     const questionDiv = document.getElementById('question');
@@ -154,6 +155,7 @@
     let selectedStudents = [];
     let responses = [];
 
+    // load the dataset csv
     async function loadCSV() {
         const response = await fetch("task_trials_StressLevelDataset.csv");
         const text = await response.text();
@@ -177,11 +179,17 @@
         return (data);
     }
 
+    // Fisher-Yates shuffle and take the first n elements for a random sample
     function randomSample(array, size) {
-      const shuffled = array.slice().sort(() => 0.5 - Math.random());
-      return shuffled.slice(0, size);
+        const shuffled = array.slice(); // Create a copy
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; 
+        }
+        return shuffled.slice(0, size);
     }
 
+    // dynamically updates the question with the information from the sampled row of data
     function showQuestion(student, number) {
       document.getElementById('studentHeader').textContent =
         `Student #${student.id} – Question ${number}/20`;
@@ -222,6 +230,7 @@
         <p>Bullying: ${student.bullying}</p>`;
     }
 
+    // when pressed, hides the intro section and shows the first question
     start_button.addEventListener('click', async () => {
       students = await loadCSV();
       selectedStudents = randomSample(students, 20);
@@ -230,11 +239,17 @@
       showQuestion(selectedStudents[0], 1);
     });
 
-    next_button.addEventListener('click', () => {
-        const label = btn.dataset.label;
-        const student = selectedStudents[currentIndex];
-        responses.push({ id: student.id, label });
+    // record which label is clicked, updates at each new click until the next question button is pressed
+    label_buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const label = button.getAttribute('data-label');
+            responses[currentIndex] = label; 
+        });
+    });
 
+    // moves to the next question by showing the next sampled data point
+    // if all 20 are done, hides the question interface and shows the ending screen
+    next_button.addEventListener('click', () => {
         currentIndex++;
         if (currentIndex < 20) {
           showQuestion(selectedStudents[currentIndex], currentIndex + 1);
