@@ -1,264 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Stress Level Labeling</title>
-  <style>
-     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background-color: #ffffffed;
-    }
-    h2 {
-      font-size: 21px;
-    }
-    h3 {
-      font-size: 18px;
-    }
-    h4 { 
-      margin-top: 0; 
-    }
-    button {
-      padding: 13px 22px;
-      margin: 0 10px;
-      border: none;
-      border-radius: 5px;
-      background-color: #ccc;
-      font-size: 18px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #bbb;
-    }
-    .label_button:focus {
-        outline: none; 
-        border: 3px solid #3c87ff;
-        color: #ffffff;
-    }
-    .next_button {
-      padding: 12px 20px;
-      font-size: 15px;
-      margin: 20px;
-      background-color: #3c87ff;
-      color: #ffffff;
-      margin: 0px;
-    }
-    .hidden {
-        display: none;
-    }
-    .container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 20px;
-      margin-bottom: 20px;
-    }
-    .category {
-      border-radius: 10px;
-      padding: 15px;
-    }
-    .psych { 
-      background-color: #f8d7da; 
-    }
-    .phys { 
-      background-color: #ffe5cd; 
-    }
-    .acad { 
-      background-color: #d4edda; 
-    }
-    .social { 
-      background-color: #d1ecf1; 
-    }
-    .env { 
-      background-color: #fff4d0; 
-    }
-    .question {
-      text-align: center;
-      margin-top: 30px;
-    }
-    .next_q{
-      display: flex;
-      justify-content: right;
-    }
-    #intro, #ending {
-      text-align: center;
-      max-width: 750px;
-      margin: 100px auto;
-    }
-    #intro button {
-      background-color: #4CAF50;
-      color: white;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Student Stress Level Labeling Task</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #ffffffed;
+        }
+        h2 {
+            font-size: 21px;
+        }
+        h3 {
+            font-size: 18px;
+        }
+        h4 { 
+            margin-top: 0; 
+        }
+        button {
+            padding: 13px 22px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ccc;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #bbb;
+        }
+        .label_button:focus {
+            outline: none; 
+            border: 3px solid #3c87ff;
+            color: #ffffff;
+        }
+        .hidden {
+            display: none;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            margin-bottom: 20px;
+        }
+        .category {
+            border-radius: 10px;
+            padding: 15px;
+        }
+        .psych { 
+            background-color: #f8d7da; 
+        }
+        .phys { 
+            background-color: #ffe5cd; 
+        }
+        .acad { 
+            background-color: #d4edda; 
+        }
+        .social { 
+            background-color: #d1ecf1; 
+        }
+        .env { 
+            background-color: #fff4d0; 
+        }
+        .question {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .next_q{
+            display: flex;
+            justify-content: right;
+        }
+        #intro, #ending {
+            text-align: center;
+            max-width: 750px;
+            margin: 100px auto;
+        }
+        #intro button {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #next_button {
+            padding: 12px 20px;
+            font-size: 15px;
+            margin: 20px;
+            background-color: #3c87ff;
+            color: #ffffff;
+            margin: 0px;
+        }
+    </style>
 </head>
 <body>
-  <!-- Intro Page -->
-  <div id="intro">
-    <h1>Welcome to the Stress Level Labeling Task</h1>
-    <p>
-        Your goal is to determine the stress level of students based on self-reported survey responses.
-        Each survey asked about 20 factors of stress, split into 5 scientifically identified stress categories with 4 factors each. 
-        The "Anxiety Level", "Depression", and "Self Esteem" are measured through the PHQ-9 assessment tool (higher is more symptoms of depression), GAD-7 (Generalized Anxiety Disorder-7) scale (higher means higher anxiety), and Rosenberg Self-Esteem Scale (higher is higher self esteem) respectively.
-        The "Mental Health History" factor is a binary value indicating if there is a history of mental health problems (1) or no history (0).
-        The "Blood Pressure" factor was subjectively rated on a scale where 1 = low, 2 = average, and 3 = high.
-        All of the rest of the factors are rated on a Likert scale from 0 to 5, where 0 is not applicable, 1 is low, and 5 is high (opposite for reversed valence).
-        
-        You will see 20 students’ ratings on different stress-related factors.  
-        For each student, label their overall stress level as <b>Low</b>, <b>Medium</b>, or <b>High</b>.
-        These instructions will be included in a dropdown box at the top of each question page.
-    </p>
-    <button id="start_button">Start</button>
-  </div>
-
-  <!-- Question Page -->
-  <div id="question" class="hidden">
-    <h2 id="studentHeader"></h2>
-    <p>If you need further explanation of the factors, hover over each box.</p>
-    <div class="container">
-      <div class="category psych" id="psych"></div>
-      <div class="category phys" id="phys"></div>
-      <div class="category env" id="env"></div>
-      <div class="category acad" id="acad"></div>
-      <div class="category social" id="social"></div>
+    <!-- Intro Page -->
+    <div id="intro">
+        <h1>Welcome to the Stress Level Labeling Task</h1>
+        <p>
+            Your goal is to determine the stress level of students based on self-reported survey responses.
+            <br>
+            Each survey asked about 20 factors of stress, split into 5 scientifically identified 
+            stress categories with 4 factors each. 
+            <br>
+            The "Anxiety Level", "Depression", and "Self Esteem" are measured through the 
+            PHQ-9 assessment tool (higher is more symptoms of depression), 
+            GAD-7 (Generalized Anxiety Disorder-7) scale (higher means higher anxiety), 
+            and Rosenberg Self-Esteem Scale (higher is higher self esteem) respectively.
+            <br>
+            The "Mental Health History" factor is a binary value indicating if there is a 
+            history of mental health problems (1) or no history (0).
+            <br>
+            The "Blood Pressure" factor was subjectively rated on a scale where 
+            1 = low, 2 = average, and 3 = high.
+            <br>
+            All of the rest of the factors are rated on a Likert scale from 
+            0 to 5, where 0 is not applicable, 1 is low, and 5 is high (opposite for reversed valence).
+            <br><br>
+            You will see 20 students’ ratings on different stress-related factors.  
+            <br>
+            For each student, label their overall stress level as 
+            <b>Low</b>, <b>Medium</b>, or <b>High</b>.
+            <br>
+            These instructions will be included in a dropdown box at the top of each question page.
+        </p>
+        <p>
+            
+        </p>
+        <button id="start_button">Start</button>
     </div>
 
-    <div class="bottom">
-      <h3>Please label the stress level you believe this student is experiencing:</h3>
-      <button class="label_button" data-label="0">Low Stress</button>
-      <button class="label_button" data-label="1">Medium Stress</button>
-      <button class="label_button" data-label="2">High Stress</button>
+    <!-- Question Page -->
+    <div id="question" class="hidden">
+        <h2 id="studentHeader"></h2>
+        <p>If you need further explanation of the factors, hover over each box.</p>
+        <div class="container">
+        <div class="category psych" id="psych"></div>
+        <div class="category phys" id="phys"></div>
+        <div class="category env" id="env"></div>
+        <div class="category acad" id="acad"></div>
+        <div class="category social" id="social"></div>
+        </div>
+
+        <div class="question">
+        <h3>Please label the stress level you believe this student is experiencing:</h3>
+        <button class="label_button" data-label="0">Low Stress</button>
+        <button class="label_button" data-label="1">Medium Stress</button>
+        <button class="label_button" data-label="2">High Stress</button>
+        </div>
+
+        <div class="next_q">
+            <button id="next_button">Next Question</button>
+        </div>
     </div>
 
-    <div class="next_q">
-        <button class="next_button">Next Question</button>
-      </div>
-  </div>
+    <!-- Conclusion Page -->
+    <div id="ending" class="hidden">
+        <h1>Thank you!</h1>
+        <p>You have completed all 20 questions.</p>
+        <p>Your responses are shown below (you can copy them):</p>
+        <pre id="responsesDisplay"></pre>
+    </div>
 
-  <!-- Thank You Page -->
-  <div id="ending" class="hidden">
-    <h1>Thank you!</h1>
-    <p>You have completed all 20 questions.</p>
-    <p>Your responses are shown below (you can copy them):</p>
-    <pre id="responsesDisplay"></pre>
-  </div>
+    <script>
+        const start_button = document.getElementById('start_button');
+        const label_buttons = document.querySelectorAll('.label_button');
+        const next_button = document.getElementById('next_button');
+        const introDiv = document.getElementById('intro');
+        const questionDiv = document.getElementById('question');
+        const endingDiv = document.getElementById('ending');
+        const responsesDisplay = document.getElementById('responsesDisplay');
 
-  <script>
-    const start_button = document.getElementById('start_button');
-    const label_buttons = document.querySelectorAll('.label_button');
-    const next_button = document.getElementById('next_button');
-    const introDiv = document.getElementById('intro');
-    const questionDiv = document.getElementById('question');
-    const endingDiv = document.getElementById('ending');
-    const responsesDisplay = document.getElementById('responsesDisplay');
+        let students = [];
+        let currentIndex = 0;
+        let selectedStudents = [];
+        let responses = [];
 
-    let students = [];
-    let currentIndex = 0;
-    let selectedStudents = [];
-    let responses = [];
+        // load the dataset csv
+        async function loadCSV() {
+            const response = await fetch("task_trials_StressLevelDataset.csv");
+            const text = await response.text();
 
-    // load the dataset csv
-    async function loadCSV() {
-        const response = await fetch("task_trials_StressLevelDataset.csv");
-        const text = await response.text();
+            // split into rows
+            const rows = text.trim().split("\n");
 
-        // split into rows
-        const rows = text.trim().split("\n");
+            // first row is headers
+            const headers = rows[0].split(",").map(h => h.trim());
 
-        // first row is headers
-        const headers = rows[0].split(",").map(h => h.trim());
-
-        // create objects where the headers are keys
-        const data = rows.slice(1).map(row => {
-            const values = row.split(",").map(v => v.trim());
-            const entry = {};
-            headers.forEach((header, i) => {
-                entry[header] = values[i];
+            // create objects where the headers are keys
+            const data = rows.slice(1).map(row => {
+                const values = row.split(",").map(v => v.trim());
+                const entry = {};
+                headers.forEach((header, i) => {
+                    entry[header] = values[i];
+                });
+                return entry;
             });
-            return entry;
+
+            return (data);
+        }
+
+        // Fisher-Yates shuffle and take the first n elements for a random sample
+        function randomSample(array, size) {
+            const shuffled = array.slice(); // Create a copy
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; 
+            }
+            return shuffled.slice(0, size);
+        }
+
+        // dynamically updates the question with the information from the sampled row of data
+        function showQuestion(student, number) {
+        document.getElementById('studentHeader').textContent =
+            `Student #${student.id} – Question ${number}/20`;
+
+        document.getElementById('psych').innerHTML = `
+            <h3>Psychological Factors</h3>
+            <p>Anxiety level: ${student.anxiety_level}</p>
+            <p>Self esteem: ${student.self_esteem}</p>
+            <p>Mental health history: ${student.mental_health_history}</p>
+            <p>Depression: ${student.depression}</p>`;
+
+        document.getElementById('phys').innerHTML = `
+            <h3>Physiological Factors</h3>
+            <p>Headache: ${student.headache}</p>
+            <p>Blood pressure: ${student.blood_pressure}</p>
+            <p>Sleep quality: ${student.sleep_quality}</p>
+            <p>Breathing problem: ${student.breathing_problem}</p>`;
+
+        document.getElementById('env').innerHTML = `
+            <h3>Environmental Factors</h3>
+            <p>Noise level: ${student.noise_level}</p>
+            <p>Living conditions: ${student.living_conditions}</p>
+            <p>Safety: ${student.safety}</p>
+            <p>Basic needs: ${student.basic_needs}</p>`;
+
+        document.getElementById('acad').innerHTML = `
+            <h3>Academic Factors</h3>
+            <p>Academic performance: ${student.academic_performance}</p>
+            <p>Study load: ${student.study_load}</p>
+            <p>Teacher student relationship: ${student.teacher_student_relationship}</p>
+            <p>Future career concerns: ${student.future_career_concerns}</p>`;
+
+        document.getElementById('social').innerHTML = `
+            <h3>Social Factors</h3>
+            <p>Social support: ${student.social_support}</p>
+            <p>Peer pressure: ${student.peer_pressure}</p>
+            <p>Extracurricular activities: ${student.extracurricular_activities}</p>
+            <p>Bullying: ${student.bullying}</p>`;
+        }
+
+        // when pressed, hides the intro section and shows the first question
+        start_button.addEventListener('click', async () => {
+        students = await loadCSV();
+        selectedStudents = randomSample(students, 20);
+        introDiv.classList.add('hidden');
+        questionDiv.classList.remove('hidden');
+        showQuestion(selectedStudents[0], 1);
         });
 
-        return (data);
-    }
-
-    // Fisher-Yates shuffle and take the first n elements for a random sample
-    function randomSample(array, size) {
-        const shuffled = array.slice(); // Create a copy
-        for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; 
-        }
-        return shuffled.slice(0, size);
-    }
-
-    // dynamically updates the question with the information from the sampled row of data
-    function showQuestion(student, number) {
-      document.getElementById('studentHeader').textContent =
-        `Student #${student.id} – Question ${number}/20`;
-
-      document.getElementById('psych').innerHTML = `
-        <h3>Psychological Factors</h3>
-        <p>Anxiety level: ${student.anxiety_level}</p>
-        <p>Self esteem: ${student.self_esteem}</p>
-        <p>Mental health history: ${student.mental_health_history}</p>
-        <p>Depression: ${student.depression}</p>`;
-
-      document.getElementById('phys').innerHTML = `
-        <h3>Physiological Factors</h3>
-        <p>Headache: ${student.headache}</p>
-        <p>Blood pressure: ${student.blood_pressure}</p>
-        <p>Sleep quality: ${student.sleep_quality}</p>
-        <p>Breathing problem: ${student.breathing_problem}</p>`;
-
-      document.getElementById('env').innerHTML = `
-        <h3>Environmental Factors</h3>
-        <p>Noise level: ${student.noise_level}</p>
-        <p>Living conditions: ${student.living_conditions}</p>
-        <p>Safety: ${student.safety}</p>
-        <p>Basic needs: ${student.basic_needs}</p>`;
-
-      document.getElementById('acad').innerHTML = `
-        <h3>Academic Factors</h3>
-        <p>Academic performance: ${student.academic_performance}</p>
-        <p>Study load: ${student.study_load}</p>
-        <p>Teacher student relationship: ${student.teacher_student_relationship}</p>
-        <p>Future career concerns: ${student.future_career_concerns}</p>`;
-
-      document.getElementById('social').innerHTML = `
-        <h3>Social Factors</h3>
-        <p>Social support: ${student.social_support}</p>
-        <p>Peer pressure: ${student.peer_pressure}</p>
-        <p>Extracurricular activities: ${student.extracurricular_activities}</p>
-        <p>Bullying: ${student.bullying}</p>`;
-    }
-
-    // when pressed, hides the intro section and shows the first question
-    start_button.addEventListener('click', async () => {
-      students = await loadCSV();
-      selectedStudents = randomSample(students, 20);
-      introDiv.classList.add('hidden');
-      questionDiv.classList.remove('hidden');
-      showQuestion(selectedStudents[0], 1);
-    });
-
-    // record which label is clicked, updates at each new click until the next question button is pressed
-    label_buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            const label = button.getAttribute('data-label');
-            responses[currentIndex] = label; 
+        // record which label is clicked, updates at each new click until the next question button is pressed
+        label_buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const label = button.getAttribute('data-label');
+                responses[currentIndex] = label; 
+            });
         });
-    });
 
-    // moves to the next question by showing the next sampled data point
-    // if all 20 are done, hides the question interface and shows the ending screen
-    next_button.addEventListener('click', () => {
-        currentIndex++;
-        if (currentIndex < 20) {
-          showQuestion(selectedStudents[currentIndex], currentIndex + 1);
-        } else {
-          questionDiv.classList.add('hidden');
-          endingDiv.classList.remove('hidden');
-          responsesDisplay.textContent = JSON.stringify(responses, null, 2);
-        }
-      });
-  </script>
+        // moves to the next question by showing the next sampled data point
+        // if all 20 are done, hides the question interface and shows the ending screen
+        next_button.addEventListener('click', () => {
+            currentIndex++;
+            if (currentIndex < 20) {
+            showQuestion(selectedStudents[currentIndex], currentIndex + 1);
+            } else {
+            questionDiv.classList.add('hidden');
+            endingDiv.classList.remove('hidden');
+            responsesDisplay.textContent = JSON.stringify(responses, null, 2);
+            }
+        });
+    </script>
 </body>
 </html>
