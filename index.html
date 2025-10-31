@@ -73,7 +73,7 @@
         }
         #intro, #ending {
             text-align: center;
-            max-width: 750px;
+            max-width: 1000px;
             margin: 100px auto;
         }
         #intro button {
@@ -87,6 +87,11 @@
             background-color: #3c87ff;
             color: #ffffff;
             margin: 0px;
+        }
+        #next_button:disabled {
+            background-color: #ccc;
+            color: #666;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -130,20 +135,20 @@
     <!-- Question Page -->
     <div id="question" class="hidden">
         <h2 id="studentHeader"></h2>
-        <p>If you need further explanation of the factors, hover over each box.</p>
-        <div class="container">
-        <div class="category psych" id="psych"></div>
-        <div class="category phys" id="phys"></div>
-        <div class="category env" id="env"></div>
-        <div class="category acad" id="acad"></div>
-        <div class="category social" id="social"></div>
+            <p>If you need further explanation of the factors, hover over each box.</p>
+            <div class="container">
+            <div class="category psych" id="psych"></div>
+            <div class="category phys" id="phys"></div>
+            <div class="category env" id="env"></div>
+            <div class="category acad" id="acad"></div>
+            <div class="category social" id="social"></div>
         </div>
 
         <div class="question">
-        <h3>Please label the stress level you believe this student is experiencing:</h3>
-        <button class="label_button" data-label="0">Low Stress</button>
-        <button class="label_button" data-label="1">Medium Stress</button>
-        <button class="label_button" data-label="2">High Stress</button>
+            <h3>Please label the stress level you believe this student is experiencing:</h3>
+            <button class="label_button" data-label="0">Low Stress</button>
+            <button class="label_button" data-label="1">Medium Stress</button>
+            <button class="label_button" data-label="2">High Stress</button>
         </div>
 
         <div class="next_q">
@@ -183,6 +188,8 @@
 
             // first row is headers
             const headers = rows[0].split(",").map(h => h.trim());
+            // give name to the first index col
+            if (!headers[0]) headers[0] = "index";
 
             // create objects where the headers are keys
             const data = rows.slice(1).map(row => {
@@ -209,59 +216,65 @@
 
         // dynamically updates the question with the information from the sampled row of data
         function showQuestion(student, number) {
-        document.getElementById('studentHeader').textContent =
-            `Student #${student.id} – Question ${number}/20`;
+            next_button.disabled = true;
 
-        document.getElementById('psych').innerHTML = `
-            <h3>Psychological Factors</h3>
-            <p>Anxiety level: ${student.anxiety_level}</p>
-            <p>Self esteem: ${student.self_esteem}</p>
-            <p>Mental health history: ${student.mental_health_history}</p>
-            <p>Depression: ${student.depression}</p>`;
+            document.getElementById('studentHeader').textContent =
+                `Question ${number}/20`;
 
-        document.getElementById('phys').innerHTML = `
-            <h3>Physiological Factors</h3>
-            <p>Headache: ${student.headache}</p>
-            <p>Blood pressure: ${student.blood_pressure}</p>
-            <p>Sleep quality: ${student.sleep_quality}</p>
-            <p>Breathing problem: ${student.breathing_problem}</p>`;
+            document.getElementById('psych').innerHTML = `
+                <h3>Psychological Factors</h3>
+                <p>Anxiety level: ${student.anxiety_level}</p>
+                <p>Self esteem: ${student.self_esteem}</p>
+                <p>Mental health history: ${student.mental_health_history}</p>
+                <p>Depression: ${student.depression}</p>`;
 
-        document.getElementById('env').innerHTML = `
-            <h3>Environmental Factors</h3>
-            <p>Noise level: ${student.noise_level}</p>
-            <p>Living conditions: ${student.living_conditions}</p>
-            <p>Safety: ${student.safety}</p>
-            <p>Basic needs: ${student.basic_needs}</p>`;
+            document.getElementById('phys').innerHTML = `
+                <h3>Physiological Factors</h3>
+                <p>Headache: ${student.headache}</p>
+                <p>Blood pressure: ${student.blood_pressure}</p>
+                <p>Sleep quality: ${student.sleep_quality}</p>
+                <p>Breathing problem: ${student.breathing_problem}</p>`;
 
-        document.getElementById('acad').innerHTML = `
-            <h3>Academic Factors</h3>
-            <p>Academic performance: ${student.academic_performance}</p>
-            <p>Study load: ${student.study_load}</p>
-            <p>Teacher student relationship: ${student.teacher_student_relationship}</p>
-            <p>Future career concerns: ${student.future_career_concerns}</p>`;
+            document.getElementById('env').innerHTML = `
+                <h3>Environmental Factors</h3>
+                <p>Noise level: ${student.noise_level}</p>
+                <p>Living conditions: ${student.living_conditions}</p>
+                <p>Safety: ${student.safety}</p>
+                <p>Basic needs: ${student.basic_needs}</p>`;
 
-        document.getElementById('social').innerHTML = `
-            <h3>Social Factors</h3>
-            <p>Social support: ${student.social_support}</p>
-            <p>Peer pressure: ${student.peer_pressure}</p>
-            <p>Extracurricular activities: ${student.extracurricular_activities}</p>
-            <p>Bullying: ${student.bullying}</p>`;
+            document.getElementById('acad').innerHTML = `
+                <h3>Academic Factors</h3>
+                <p>Academic performance: ${student.academic_performance}</p>
+                <p>Study load: ${student.study_load}</p>
+                <p>Teacher student relationship: ${student.teacher_student_relationship}</p>
+                <p>Future career concerns: ${student.future_career_concerns}</p>`;
+
+            document.getElementById('social').innerHTML = `
+                <h3>Social Factors</h3>
+                <p>Social support: ${student.social_support}</p>
+                <p>Peer pressure: ${student.peer_pressure}</p>
+                <p>Extracurricular activities: ${student.extracurricular_activities}</p>
+                <p>Bullying: ${student.bullying}</p>`;
         }
 
         // when pressed, hides the intro section and shows the first question
         start_button.addEventListener('click', async () => {
-        students = await loadCSV();
-        selectedStudents = randomSample(students, 20);
-        introDiv.classList.add('hidden');
-        questionDiv.classList.remove('hidden');
-        showQuestion(selectedStudents[0], 1);
+            students = await loadCSV();
+            selectedStudents = randomSample(students, 20);
+            introDiv.classList.add('hidden');
+            questionDiv.classList.remove('hidden');
+            showQuestion(selectedStudents[0], 1);
         });
 
-        // record which label is clicked, updates at each new click until the next question button is pressed
+        // record which label is clicked for which question, updates at each new click until the next question button is pressed
         label_buttons.forEach(button => {
             button.addEventListener('click', () => {
                 const label = button.getAttribute('data-label');
-                responses[currentIndex] = label; 
+                const i = selectedStudents[currentIndex].index; 
+
+                responses[currentIndex] = {csvIndex: i, label: label};
+                // enable next button when a button is selected here
+                next_button.disabled = false;
             });
         });
 
@@ -270,11 +283,11 @@
         next_button.addEventListener('click', () => {
             currentIndex++;
             if (currentIndex < 20) {
-            showQuestion(selectedStudents[currentIndex], currentIndex + 1);
+                showQuestion(selectedStudents[currentIndex], currentIndex + 1);
             } else {
-            questionDiv.classList.add('hidden');
-            endingDiv.classList.remove('hidden');
-            responsesDisplay.textContent = JSON.stringify(responses, null, 2);
+                questionDiv.classList.add('hidden');
+                endingDiv.classList.remove('hidden');
+                responsesDisplay.textContent = JSON.stringify(responses, null, 2);
             }
         });
     </script>
