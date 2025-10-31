@@ -149,11 +149,21 @@
         const response = await fetch("task_trials_StressLevelDataset.csv");
         const text = await response.text();
 
-        // Split into rows
+        // split into rows
         const rows = text.trim().split("\n");
 
-        // Split each row by comma into 2D array
-        const data = rows.map(row => row.split(","));
+        // first row is headers
+        const headers = rows[0].split(",").map(h => h.trim());
+
+        // create objects where the headers are keys
+        const data = rows.slice(1).map(row => {
+            const values = row.split(",").map(v => v.trim());
+            const entry = {};
+            headers.forEach((header, i) => {
+                entry[header] = values[i];
+            });
+            return entry;
+        });
 
         return (data);
     }
