@@ -13,7 +13,7 @@
       font-size: 21px;
     }
     h3 {
-      font-size: 19px;
+      font-size: 18px;
     }
     h4 { 
       margin-top: 0; 
@@ -30,13 +30,21 @@
     button:hover {
       background-color: #bbb;
     }
-    .next_q {
+    .label_button:active {
+        border-color: #3c87ff;
+        border-width: 4px;
+        color: #ffffff;
+    }
+    .next_button {
       padding: 12px 20px;
       font-size: 15px;
       margin: 20px;
       background-color: #3c87ff;
       color: #ffffff;
       margin: 0px;
+    }
+    .hidden {
+        display: none;
     }
     .container {
       display: grid;
@@ -67,7 +75,7 @@
       text-align: center;
       margin-top: 30px;
     }
-    .next_button{
+    .next_q{
       display: flex;
       justify-content: right;
     }
@@ -98,7 +106,7 @@
         For each student, label their overall stress level as <b>Low</b>, <b>Medium</b>, or <b>High</b>.
         These instructions will be included in a dropdown box at the top of each question page.
     </p>
-    <button id="startBtn">Start</button>
+    <button id="start_button">Start</button>
   </div>
 
   <!-- Question Page -->
@@ -115,13 +123,13 @@
 
     <div class="bottom">
       <h3>Please label the stress level you believe this student is experiencing:</h3>
-      <button class="labelBtn" data-label="Low Stress">Low Stress</button>
-      <button class="labelBtn" data-label="Medium Stress">Medium Stress</button>
-      <button class="labelBtn" data-label="High Stress">High Stress</button>
+      <button class="label_button" data-label="Low Stress">Low Stress</button>
+      <button class="label_button" data-label="Medium Stress">Medium Stress</button>
+      <button class="label_button" data-label="High Stress">High Stress</button>
     </div>
 
-    <div class="next_button">
-        <button class="next_q">Next Question</button>
+    <div class="next_q">
+        <button class="next_button">Next Question</button>
       </div>
   </div>
 
@@ -134,7 +142,7 @@
   </div>
 
   <script>
-    const startBtn = document.getElementById('startBtn');
+    const start_button = document.getElementById('start_button');
     const introDiv = document.getElementById('intro');
     const questionDiv = document.getElementById('question');
     const endingDiv = document.getElementById('ending');
@@ -213,7 +221,7 @@
         <p>Bullying: ${student.bullying}</p>`;
     }
 
-    startBtn.addEventListener('click', async () => {
+    start_button.addEventListener('click', async () => {
       students = await loadCSV();
       selectedStudents = randomSample(students, 20);
       introDiv.classList.add('hidden');
@@ -221,8 +229,7 @@
       showQuestion(selectedStudents[0], 1);
     });
 
-    document.querySelectorAll('.labelBtn').forEach(btn => {
-      btn.addEventListener('click', () => {
+    next_button.addEventListener('click', () => {
         const label = btn.dataset.label;
         const student = selectedStudents[currentIndex];
         responses.push({ id: student.id, label });
@@ -236,7 +243,6 @@
           responsesDisplay.textContent = JSON.stringify(responses, null, 2);
         }
       });
-    });
   </script>
 </body>
 </html>
