@@ -76,6 +76,9 @@
             max-width: 1000px;
             margin: 100px auto;
         }
+        #intro p{
+            font-size: medium;
+        }
         #intro button {
             background-color: #4CAF50;
             color: white;
@@ -98,23 +101,27 @@
 <body>
     <!-- Intro Page -->
     <div id="intro">
-        <h1>Welcome to the Stress Level Labeling Task</h1>
+        <h1>Introduction: Student Stress Level Labeling Task</h1>
         <p>
             Your goal is to determine the stress level of students based on self-reported survey responses.
             <br>
             Each survey asked about 20 factors of stress, split into 5 scientifically identified 
             stress categories with 4 factors each. 
+            <br><br>
+            The "<span style="color: rgb(236, 0, 43);">Anxiety Level</span>", 
+            "<span style="color: rgb(236, 0, 43);">Depression</span>", and 
+            "<span style="color: rgb(236, 0, 43);">Self Esteem</span>" factors are measured through the 
+            <strong>PHQ-9 assessment tool</strong> (higher means more symptoms of depression), 
+            <strong>GAD-7 (Generalized Anxiety Disorder-7) scale</strong> (higher means higher anxiety), 
+            and <strong>Rosenberg Self-Esteem Scale</strong> (higher is higher self esteem) respectively.
             <br>
-            The "Anxiety Level", "Depression", and "Self Esteem" are measured through the 
-            PHQ-9 assessment tool (higher is more symptoms of depression), 
-            GAD-7 (Generalized Anxiety Disorder-7) scale (higher means higher anxiety), 
-            and Rosenberg Self-Esteem Scale (higher is higher self esteem) respectively.
+            The "<span style="color: rgb(236, 0, 43);">Mental Health History</span>" factor is a 
+            <strong>binary</strong> value indicating if there is a history of 
+            mental health problems (1) or no history (0).
             <br>
-            The "Mental Health History" factor is a binary value indicating if there is a 
-            history of mental health problems (1) or no history (0).
-            <br>
-            The "Blood Pressure" factor was subjectively rated on a scale where 
-            1 = low, 2 = average, and 3 = high.
+            The "<span style="color: rgb(236, 0, 43);">Blood Pressure</span>" factor was subjectively 
+            rated on a scale where <strong>1 = low</strong>, <strong>2 = average</strong>, and 
+            <strong>3 = high</strong>.
             <br>
             All of the rest of the factors are rated on a Likert scale from 
             0 to 5, where 0 is not applicable, 1 is low, and 5 is high (opposite for reversed valence).
@@ -122,8 +129,8 @@
             You will see 20 students’ ratings on different stress-related factors.  
             <br>
             For each student, label their overall stress level as 
-            <b>Low</b>, <b>Medium</b>, or <b>High</b>.
-            <br>
+            <strong>Low</strong>, <strong>Medium</strong>, or <strong>High</strong>.
+            <br><br>
             These instructions will be included in a dropdown box at the top of each question page.
         </p>
         <p>
@@ -225,13 +232,18 @@
                 <h3>Psychological Factors</h3>
                 <p>Anxiety level: ${student.anxiety_level}</p>
                 <p>Self esteem: ${student.self_esteem}</p>
-                <p>Mental health history: ${student.mental_health_history}</p>
+                <p>Mental health history: ${student.mental_health_history == "1" ? "History present" : "No history"}</p>
                 <p>Depression: ${student.depression}</p>`;
 
             document.getElementById('phys').innerHTML = `
                 <h3>Physiological Factors</h3>
                 <p>Headache: ${student.headache}</p>
-                <p>Blood pressure: ${student.blood_pressure}</p>
+                <p>Blood pressure: ${
+                    student.blood_pressure == "1" ? "Low" :
+                    student.blood_pressure == "2" ? "Average" :
+                    student.blood_pressure == "3" ? "High" :
+                    "Unknown"}
+                </p>
                 <p>Sleep quality: ${student.sleep_quality}</p>
                 <p>Breathing problem: ${student.breathing_problem}</p>`;
 
