@@ -122,6 +122,36 @@ function showQuestion(student, number) {
         <p>Bullying: ${student.bullying} ${numberLine(student.bullying, "bullying")}</p>`;
 }
 
+function makeID(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+const user = makeID(10);
+
+async function submitResponses() {
+    const url = "https://script.google.com/macros/s/AKfycbxZCu0YBSNB-PDCY2_bMo3t7JibfXhpG1o6_E-PoT1ho9do-Pl9nQpV79x_8V8OOl-IRw/exec";
+  
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        mode: "no-cors", // bypass CORS restrictions
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(responses)
+      });
+      console.log("Responses sent to Google Sheets");
+    } catch (err) {
+      console.error("Error sending data:", err);
+    }
+  }
+
 // when pressed, hides the intro section and shows the first question
 start_button.addEventListener('click', async () => {
     students = await loadCSV();
@@ -141,7 +171,7 @@ label_buttons.forEach(button => {
         const label = button.getAttribute('data-label');
         const i = selectedStudents[currentIndex].index; 
 
-        responses[currentIndex] = {csvIndex: i, label: label};
+        responses[currentIndex] = {userID: user, csvIndex: i, label: label};
         // enable next button when a button is selected here
         next_button.disabled = false;
     });
@@ -160,17 +190,8 @@ next_button.addEventListener('click', () => {
         questionDiv.classList.add('hidden');
         endingDiv.classList.remove('hidden');
         responsesDisplay.textContent = JSON.stringify(responses, null, 2);
+        document.getElementById('userID').innerHTML = `
+            <p>User ID: ${user}</p>`
+        submitResponses(responses);
     }
 });
-
-async function submitData(formData) {
-    const webAppUrl = "https://script.google.com/macros/s/AKfycbxZCu0YBSNB-PDCY2_bMo3t7JibfXhpG1o6_E-PoT1ho9do-Pl9nQpV79x_8V8OOl-IRw/exec"; // Replace with your actual URL
-    const response = await fetch(webAppUrl, {
-      method: "POST",
-      body: new URLSearchParams(formData), // Format data for URL-encoded POST
-    });
-    const result = await response.text();
-    console.log(result); // Should log "Success" if successful
-}
-
-submitData(responses);
