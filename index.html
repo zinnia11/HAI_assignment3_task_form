@@ -88,7 +88,7 @@
             /* text-align: center; */
             max-width: 1200px;
             margin: 100px auto;
-            color: #fff7e7;
+            background-color: #fff7e7;
         }
         #intro p{
             font-size: medium;
@@ -245,8 +245,8 @@
             const percentage = (parseFloat(value) / max) * 100;
 
             let color = "#4CAF50"; // green = low
-            if (numericValue >= 3 && numericValue < 4) color = "#FFC107"; // yellow = medium
-            else if (numericValue >= 4) color = "#F44336"; // red = high
+            if (percentage >= 33 && percentage < 67) color = "#FFC107"; // yellow = medium
+            else if (percentage >= 67) color = "#F44336"; // red = high
 
             return `
                 <div class="number-line">
