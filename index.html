@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    
+
 <head>
     <meta charset="UTF-8">
     <title>Student Stress Level Labeling Task</title>
@@ -33,9 +33,9 @@
             <strong>3 = high</strong>.
             <br>
             All of the rest of the factors are rated on a Likert scale from 
-            0 to 5, where 0 is not applicable, 1 is low, and 5 is high (opposite for reversed valence).
+            0 to 5, where <strong>0 is not applicable</strong>, <strong>1 is low</strong>, and <strong>5 is high</strong> (opposite for reversed valence).
             <br><br>
-            You will see 20 students’ ratings on different stress-related factors.  
+            You will see 20 students’ rating responses on the stress-related factors.
             <br>
             For each student, label their overall stress level as 
             <strong>Low</strong>, <strong>Medium</strong>, or <strong>High</strong>.
@@ -51,8 +51,8 @@
     <!-- Question Page -->
     <div id="survey" class="hidden">
         <h2 id="studentHeader"></h2>
-            <p>If you need further explanation of the factors, hover over each box.</p>
-            <div class="container">
+        <p>If you need further explanation of the factors, hover over each box.</p>
+        <div class="container">
             <div class="category psych" id="psych"></div>
             <div class="category phys" id="phys"></div>
             <div class="category env" id="env"></div>
@@ -74,8 +74,9 @@
 
     <!-- Conclusion Page -->
     <div id="ending" class="hidden">
-        <h1>Thank you!</h1>
+        <h1>Thank you for participating!</h1>
         <p>You have completed all 20 questions.</p>
+        <p>Please copy the survey id below and submit it in the Amazon MTurk inferface.</p>
         <p>Your responses are shown below (you can copy them):</p>
         <pre id="responsesDisplay"></pre>
     </div>

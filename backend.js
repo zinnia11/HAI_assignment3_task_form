@@ -59,12 +59,12 @@ function numberLine(value, category) {
     const percentage = (parseFloat(value) / max) * 100;
 
     let color;
-    if (percentage < 33) {
-        color = postive_valence.includes(category) ? "#F44336" : "#4CAF50" ;   // low = bad if positive valence
-    } else if (percentage < 67) {
-        color = "#FFC107";                            // medium = yellow
-    } else {
-        color = postive_valence.includes(category) ? "#4CAF50" : "#F44336";   // high = good if positive valence
+    if (percentage < 34) { // low = bad if positive valence
+        color = postive_valence.includes(category) ? "#F44336" : "#4CAF50" ;
+    } else if (percentage < 67) { // medium = yellow
+        color = "#FFC107";
+    } else { // high = good if positive valence
+        color = postive_valence.includes(category) ? "#4CAF50" : "#F44336";
     }
 
     return `
@@ -154,7 +154,7 @@ next_button.addEventListener('click', () => {
     document.querySelector('.special')?.classList.remove('special');
 
     currentIndex++;
-    if (currentIndex < 20) {
+    if (currentIndex < 5) {
         showQuestion(selectedStudents[currentIndex], currentIndex + 1);
     } else {
         questionDiv.classList.add('hidden');
@@ -162,3 +162,15 @@ next_button.addEventListener('click', () => {
         responsesDisplay.textContent = JSON.stringify(responses, null, 2);
     }
 });
+
+async function submitData(formData) {
+    const webAppUrl = "https://script.google.com/macros/s/AKfycbxZCu0YBSNB-PDCY2_bMo3t7JibfXhpG1o6_E-PoT1ho9do-Pl9nQpV79x_8V8OOl-IRw/exec"; // Replace with your actual URL
+    const response = await fetch(webAppUrl, {
+      method: "POST",
+      body: new URLSearchParams(formData), // Format data for URL-encoded POST
+    });
+    const result = await response.text();
+    console.log(result); // Should log "Success" if successful
+}
+
+submitData(responses);
