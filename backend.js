@@ -81,14 +81,14 @@ function showQuestion(student, number) {
     document.getElementById('studentHeader').textContent =
         `Question ${number}/20`;
 
-    document.getElementById('psych').innerHTML = `
+    document.getElementById('psych').innerHTML += `
         <h3>Psychological Factors</h3>
         <p>Anxiety level: ${student.anxiety_level} ${numberLine(student.anxiety_level, "anxiety_level")}</p>
         <p>Self esteem: ${student.self_esteem} ${numberLine(student.self_esteem, "self_esteem")}</p>
         <p>Mental health history: ${student.mental_health_history == "1" ? "History present" : "No history"} ${numberLine(student.mental_health_history, "mental_health_history")}</p>
         <p>Depression: ${student.depression} ${numberLine(student.depression, "depression")}</p>`;
 
-    document.getElementById('phys').innerHTML = `
+    document.getElementById('phys').innerHTML += `
         <h3>Physiological Factors</h3>
         <p>Headache: ${student.headache} ${numberLine(student.headache, "headache")}</p>
         <p>Blood pressure: ${
@@ -100,21 +100,21 @@ function showQuestion(student, number) {
         <p>Sleep quality: ${student.sleep_quality} ${numberLine(student.sleep_quality, "sleep_quality")}</p>
         <p>Breathing problem: ${student.breathing_problem} ${numberLine(student.breathing_problem, "breathing_problem")}</p>`;
 
-    document.getElementById('env').innerHTML = `
+    document.getElementById('env').innerHTML += `
         <h3>Environmental Factors</h3>
         <p>Noise level: ${student.noise_level} ${numberLine(student.noise_level, "noise_level")}</p>
         <p>Living conditions: ${student.living_conditions} ${numberLine(student.living_conditions, "living_conditions")}</p>
         <p>Safety: ${student.safety} ${numberLine(student.safety, "safety")}</p>
         <p>Basic needs: ${student.basic_needs} ${numberLine(student.basic_needs, "basic_needs")}</p>`;
 
-    document.getElementById('acad').innerHTML = `
+    document.getElementById('acad').innerHTML += `
         <h3>Academic Factors</h3>
         <p>Academic performance: ${student.academic_performance} ${numberLine(student.academic_performance, "academic_performance")}</p>
         <p>Study load: ${student.study_load} ${numberLine(student.study_load, "study_load")}</p>
         <p>Teacher student relationship: ${student.teacher_student_relationship} ${numberLine(student.teacher_student_relationship, "teacher_student_relationship")}</p>
         <p>Future career concerns: ${student.future_career_concerns} ${numberLine(student.future_career_concerns, "future_career_concerns")}</p>`;
 
-    document.getElementById('social').innerHTML = `
+    document.getElementById('social').innerHTML += `
         <h3>Social Factors</h3>
         <p>Social support: ${student.social_support} ${numberLine(student.social_support, "social_support")}</p>
         <p>Peer pressure: ${student.peer_pressure} ${numberLine(student.peer_pressure, "peer_pressure")}</p>
