@@ -30,7 +30,7 @@
         button:hover {
             background-color: #bbb;
         }
-        .label_button:focus {
+        .label_button:active {
             outline: none; 
             border: 3px solid #3c87ff;
             color: #ffffff;
@@ -323,6 +323,10 @@
         // record which label is clicked for which question, updates at each new click until the next question button is pressed
         label_buttons.forEach(button => {
             button.addEventListener('click', () => {
+                // active correct button
+                labelButtons.forEach(b => b.classList.remove('active'));
+                button.classList.add('active');
+
                 const label = button.getAttribute('data-label');
                 const i = selectedStudents[currentIndex].index; 
 
