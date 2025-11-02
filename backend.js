@@ -135,7 +135,7 @@ function makeID(length) {
 const user = makeID(10);
 
 async function submitResponses() {
-    const url = "https://script.google.com/macros/s/AKfycbxeXLBVZjnz9Qz6ncuYvtDcI1U5sBu_OlizC0Gjd4INEAgRIO6pOfWEz0-jR-lujYT0bQ/exec";
+    const url = "https://script.google.com/macros/s/AKfycbzA368VH5Wcfh5uFNfWBVKWNbm6uDQ1sNBN_9BAQM0lePIrLLcc7yzZTwBDKTY7HzSpAA/exec";
   
     try {
       const res = await fetch(url, {
