@@ -184,14 +184,19 @@ next_button.addEventListener('click', () => {
     document.querySelector('.special')?.classList.remove('special');
 
     currentIndex++;
-    if (currentIndex < 5) {
+    if (currentIndex < 20) {
         showQuestion(selectedStudents[currentIndex], currentIndex + 1);
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'auto' // Use 'auto' for an instant jump
+          });
     } else {
         questionDiv.classList.add('hidden');
         endingDiv.classList.remove('hidden');
-        responsesDisplay.textContent = JSON.stringify(responses, null, 2);
         document.getElementById('userID').innerHTML = `
-            <p style="font-size: 18px"><strong>User ID:</strong> ${user}</p>`
+            <p style="font-size: 20px"><strong>User ID:</strong> ${user}</p>`
+        responsesDisplay.textContent = JSON.stringify(responses, null, 2);
         submitResponses();
     }
 });
