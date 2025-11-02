@@ -51,6 +51,38 @@
     <!-- Question Page -->
     <div id="survey" class="hidden">
         <h2 id="studentHeader"></h2>
+        <details>
+            <summary>Open Instructions</summary>
+            <p>
+                Your goal is to determine the stress level of students based on self-reported survey responses.
+                <br>
+                Each survey asked about 20 factors of stress, split into 5 scientifically identified 
+                stress categories with 4 factors each. 
+                <br><br>
+                The "<span style="color: rgb(236, 0, 43);">Anxiety Level</span>", 
+                "<span style="color: rgb(236, 0, 43);">Depression</span>", and 
+                "<span style="color: rgb(236, 0, 43);">Self Esteem</span>" factors are measured through the 
+                <strong>PHQ-9 assessment tool</strong> (higher means more symptoms of depression), 
+                <strong>GAD-7 (Generalized Anxiety Disorder-7) scale</strong> (higher means higher anxiety), 
+                and <strong>Rosenberg Self-Esteem Scale</strong> (higher is higher self esteem) respectively.
+                <br>
+                The "<span style="color: rgb(236, 0, 43);">Mental Health History</span>" factor is a 
+                <strong>binary</strong> value indicating if there is a history of 
+                mental health problems (1) or no history (0).
+                <br>
+                The "<span style="color: rgb(236, 0, 43);">Blood Pressure</span>" factor was subjectively 
+                rated on a scale where <strong>1 = low</strong>, <strong>2 = average</strong>, and 
+                <strong>3 = high</strong>.
+                <br>
+                All of the rest of the factors are rated on a Likert scale from 
+                0 to 5, where <strong>0 is not applicable</strong>, <strong>1 is low</strong>, and <strong>5 is high</strong> (opposite for reversed valence).
+                <br><br>
+                You will see 20 students’ rating responses on the stress-related factors.
+                <br>
+                For each student, label their overall stress level as 
+                <strong>Low</strong>, <strong>Medium</strong>, or <strong>High</strong>.
+            </p>
+        </details>
         <p>If you need further explanation of the factors, hover over each box.</p>
         <div class="container">
             <div class="category psych" id="psych"></div>

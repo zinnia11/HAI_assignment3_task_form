@@ -191,7 +191,7 @@ next_button.addEventListener('click', () => {
         endingDiv.classList.remove('hidden');
         responsesDisplay.textContent = JSON.stringify(responses, null, 2);
         document.getElementById('userID').innerHTML = `
-            <p>User ID: ${user}</p>`
-        submitResponses(responses);
+            <p style="font-size: 18px"><strong>User ID:</strong> ${user}</p>`
+        submitResponses();
     }
 });

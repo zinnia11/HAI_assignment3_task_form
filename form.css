@@ -24,6 +24,11 @@ button {
 button:hover {
     background-color: #bbb;
 }
+details {
+    padding: 12px 20px;
+    background-color: #f4f4f4;
+    margin-bottom: 20px;
+  }
 /* for selecting the label buttons */
 .special {
     outline: none; 
