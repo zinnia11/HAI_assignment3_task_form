@@ -30,7 +30,7 @@
         button:hover {
             background-color: #bbb;
         }
-        .label_button:active {
+        .label_button:focus {
             outline: none; 
             border: 3px solid #3c87ff;
             color: #ffffff;
@@ -89,7 +89,8 @@
             max-width: 1200px;
             margin: 100px auto;
             padding: 20px 20px;
-            background-color: #eee;
+            background-color: #f4f4f4;
+            border-radius: 7px;
         }
         #intro p{
             font-size: medium;
@@ -155,7 +156,7 @@
     </div>
 
     <!-- Question Page -->
-    <div id="question" class="hidden">
+    <div id="survey" class="hidden">
         <h2 id="studentHeader"></h2>
             <p>If you need further explanation of the factors, hover over each box.</p>
             <div class="container">
@@ -323,9 +324,9 @@
         // record which label is clicked for which question, updates at each new click until the next question button is pressed
         label_buttons.forEach(button => {
             button.addEventListener('click', () => {
-                // active correct button
-                labelButtons.forEach(b => b.classList.remove('active'));
-                button.classList.add('active');
+                // keep correct button selected until another one is chosen
+                document.querySelector('.special')?.classList.remove('special');
+                button.classList.add('special');
 
                 const label = button.getAttribute('data-label');
                 const i = selectedStudents[currentIndex].index; 
