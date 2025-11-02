@@ -88,7 +88,8 @@
             /* text-align: center; */
             max-width: 1200px;
             margin: 100px auto;
-            background-color: #fff7e7;
+            padding: 20px 20px;
+            background-color: #fffcf5;
         }
         #intro p{
             font-size: medium;
@@ -235,6 +236,8 @@
             return shuffled.slice(0, size);
         }
 
+        const postive_valence=["self_esteem", "sleep_quality", "safety", "basic_needs", "living_conditions", 
+            "academic_performance", "teacher_student_relationship", "social_support"]
         function numberLine(value, category) {
             let max = category == "anxiety_level" ? 21 :
                     category == "self_esteem" ? 30 :
@@ -244,9 +247,9 @@
                     5;
             const percentage = (parseFloat(value) / max) * 100;
 
-            let color = "#4CAF50"; // green = low
-            if (percentage >= 33 && percentage < 67) color = "#FFC107"; // yellow = medium
-            else if (percentage >= 67) color = "#F44336"; // red = high
+            let color = postive_valence.includes(category) ? "#F44336" : "#4CAF50" ; // low = red if positive valence, else green
+            if (percentage >= 33 && percentage < 67) color = "#FFC107"; // medium = yellow
+            else if (percentage >= 67 && !(postive_valence.includes(category))) color = "#F44336"; // high = red if not positive valence
 
             return `
                 <div class="number-line">
