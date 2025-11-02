@@ -89,7 +89,7 @@
             max-width: 1200px;
             margin: 100px auto;
             padding: 20px 20px;
-            background-color: #fffcf5;
+            background-color: #eee;
         }
         #intro p{
             font-size: medium;
@@ -244,12 +244,17 @@
                     category == "depression" ? 27 :
                     category == "mental_health_history" ? 1 :
                     category == "blood_pressure" ? 3 :
-                    5;
+                    5 ;
             const percentage = (parseFloat(value) / max) * 100;
 
-            let color = postive_valence.includes(category) ? "#F44336" : "#4CAF50" ; // low = red if positive valence, else green
-            if (percentage >= 33 && percentage < 67) color = "#FFC107"; // medium = yellow
-            else if (percentage >= 67 && !(postive_valence.includes(category))) color = "#F44336"; // high = red if not positive valence
+            let color;
+            if (percentage < 33) {
+                color = postive_valence.includes(category) ? "#F44336" : "#4CAF50" ;   // low = bad if positive valence
+            } else if (percentage < 67) {
+                color = "#FFC107";                            // medium = yellow
+            } else {
+                color = postive_valence.includes(category) ? "#4CAF50" : "#F44336";   // high = good if positive valence
+            }
 
             return `
                 <div class="number-line">
@@ -269,41 +274,41 @@
                 <h3>Psychological Factors</h3>
                 <p>Anxiety level: ${student.anxiety_level} ${numberLine(student.anxiety_level, "anxiety_level")}</p>
                 <p>Self esteem: ${student.self_esteem} ${numberLine(student.self_esteem, "self_esteem")}</p>
-                <p>Mental health history: ${student.mental_health_history == "1" ? "History present" : "No history"} ${numberLine(student.mental_health_history, NaN)}</p>
+                <p>Mental health history: ${student.mental_health_history == "1" ? "History present" : "No history"} ${numberLine(student.mental_health_history, "mental_health_history")}</p>
                 <p>Depression: ${student.depression} ${numberLine(student.depression, "depression")}</p>`;
 
             document.getElementById('phys').innerHTML = `
                 <h3>Physiological Factors</h3>
-                <p>Headache: ${student.headache} ${numberLine(student.headache, NaN)}</p>
+                <p>Headache: ${student.headache} ${numberLine(student.headache, "headache")}</p>
                 <p>Blood pressure: ${
                     student.blood_pressure == "1" ? "Low" :
                     student.blood_pressure == "2" ? "Average" :
                     student.blood_pressure == "3" ? "High" :
-                    "Unknown"} ${numberLine(student.blood_pressure, NaN)}
+                    "Unknown"} ${numberLine(student.blood_pressure, "blood_pressure")}
                 </p>
-                <p>Sleep quality: ${student.sleep_quality} ${numberLine(student.sleep_quality, NaN)}</p>
-                <p>Breathing problem: ${student.breathing_problem} ${numberLine(student.breathing_problem, NaN)}</p>`;
+                <p>Sleep quality: ${student.sleep_quality} ${numberLine(student.sleep_quality, "sleep_quality")}</p>
+                <p>Breathing problem: ${student.breathing_problem} ${numberLine(student.breathing_problem, "breathing_problem")}</p>`;
 
             document.getElementById('env').innerHTML = `
                 <h3>Environmental Factors</h3>
-                <p>Noise level: ${student.noise_level} ${numberLine(student.noise_level, NaN)}</p>
-                <p>Living conditions: ${student.living_conditions} ${numberLine(student.living_conditions, NaN)}</p>
-                <p>Safety: ${student.safety} ${numberLine(student.safety, NaN)}</p>
-                <p>Basic needs: ${student.basic_needs} ${numberLine(student.basic_needs, NaN)}</p>`;
+                <p>Noise level: ${student.noise_level} ${numberLine(student.noise_level, "noise_level")}</p>
+                <p>Living conditions: ${student.living_conditions} ${numberLine(student.living_conditions, "living_conditions")}</p>
+                <p>Safety: ${student.safety} ${numberLine(student.safety, "safety")}</p>
+                <p>Basic needs: ${student.basic_needs} ${numberLine(student.basic_needs, "basic_needs")}</p>`;
 
             document.getElementById('acad').innerHTML = `
                 <h3>Academic Factors</h3>
-                <p>Academic performance: ${student.academic_performance} ${numberLine(student.academic_performance, NaN)}</p>
-                <p>Study load: ${student.study_load} ${numberLine(student.study_load, NaN)}</p>
-                <p>Teacher student relationship: ${student.teacher_student_relationship} ${numberLine(student.teacher_student_relationship, NaN)}</p>
-                <p>Future career concerns: ${student.future_career_concerns} ${numberLine(student.future_career_concerns, NaN)}</p>`;
+                <p>Academic performance: ${student.academic_performance} ${numberLine(student.academic_performance, "academic_performance")}</p>
+                <p>Study load: ${student.study_load} ${numberLine(student.study_load, "study_load")}</p>
+                <p>Teacher student relationship: ${student.teacher_student_relationship} ${numberLine(student.teacher_student_relationship, "teacher_student_relationship")}</p>
+                <p>Future career concerns: ${student.future_career_concerns} ${numberLine(student.future_career_concerns, "future_career_concerns")}</p>`;
 
             document.getElementById('social').innerHTML = `
                 <h3>Social Factors</h3>
-                <p>Social support: ${student.social_support} ${numberLine(student.social_support, NaN)}</p>
-                <p>Peer pressure: ${student.peer_pressure} ${numberLine(student.peer_pressure, NaN)}</p>
-                <p>Extracurricular activities: ${student.extracurricular_activities} ${numberLine(student.extracurricular_activities, NaN)}</p>
-                <p>Bullying: ${student.bullying} ${numberLine(student.bullying, NaN)}</p>`;
+                <p>Social support: ${student.social_support} ${numberLine(student.social_support, "social_support")}</p>
+                <p>Peer pressure: ${student.peer_pressure} ${numberLine(student.peer_pressure, "peer_pressure")}</p>
+                <p>Extracurricular activities: ${student.extracurricular_activities} ${numberLine(student.extracurricular_activities, "extracurricular_activities")}</p>
+                <p>Bullying: ${student.bullying} ${numberLine(student.bullying, "bullying")}</p>`;
         }
 
         // when pressed, hides the intro section and shows the first question
