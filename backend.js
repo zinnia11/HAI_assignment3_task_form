@@ -207,7 +207,8 @@ label_buttons.forEach(button => {
         const i = selectedStudents[currentIndex].index; 
 
         timeEnd = Math.floor(Date.now() / 1000);
-        responses[currentIndex] = {userID: user, csvIndex: i, label: label, time: (timeEnd-timeStart)};
+        const time_elapsed = (timeEnd-timeStart).toString();
+        responses[currentIndex] = {userID: user, csvIndex: i, label: label, time: time_elapsed};
         // enable next button when a button is selected here
         next_button.disabled = false;
     });
