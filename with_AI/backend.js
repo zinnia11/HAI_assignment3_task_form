@@ -192,7 +192,8 @@ start_button.addEventListener('click', async () => {
 });
 
 document.getElementById("suggestion").addEventListener("click", function(event) {
-    document.getElementById('suggestion').classList.add('hidden');
+    // document.getElementById('suggestion').classList.add('hidden');
+    let student = selectedStudents[currentIndex];
     document.getElementById('AI').innerHTML = `
         <button class="hidden" id="suggestion" style="background-color: transparent;">
           <h3 style="font-size: 18px;">Need Help? Get an AI suggestion.</h3>
