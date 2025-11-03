@@ -11,6 +11,9 @@ let currentIndex = 0;
 let selectedStudents = [];
 let responses = [];
 
+let timeStart = 0;
+let timeEnd = 0;
+
 // load the dataset csv
 async function loadCSV() {
     const response = await fetch("task_trials_StressLevelDataset.csv");
@@ -166,7 +169,7 @@ function makeID(length) {
 const user = makeID(10);
 
 async function submitResponses() {
-    const url = "https://script.google.com/macros/s/AKfycbxAgTwVnaIgDwQ9-D1KHq2ex8q2ryFgZ-JuAUgG0r_f9rnuE20Lao1fjwvrmw5k-t5AmQ/exec";
+    const url = "https://script.google.com/macros/s/AKfycbyrJ4lFWct_lzIGIH5Y4vWASzBgfBIzhEMd5cqkKYZTd1DoD4q6Ey18esOlYaK0jFJM5A/exec";
   
     try {
       const res = await fetch(url, {
@@ -186,6 +189,7 @@ async function submitResponses() {
 // when pressed, hides the intro section and shows the first question
 start_button.addEventListener('click', async () => {
     students = await loadCSV();
+    timeStart = Math.floor(Date.now() / 1000);
     selectedStudents = randomSample(students, 20);
     introDiv.classList.add('hidden');
     questionDiv.classList.remove('hidden');
@@ -224,7 +228,8 @@ label_buttons.forEach(button => {
         const label = button.getAttribute('data-label');
         const i = selectedStudents[currentIndex].index; 
 
-        responses[currentIndex] = {userID: user, csvIndex: i, label: label};
+        timeEnd = Math.floor(Date.now() / 1000);
+        responses[currentIndex] = {userID: user, csvIndex: i, label: label, time: (timeEnd-timeStart)};
         // enable next button when a button is selected here
         next_button.disabled = false;
     });
@@ -253,6 +258,7 @@ next_button.addEventListener('click', () => {
         document.getElementById("suggestion").addEventListener("click", () => {
             showSuggestion();
         });
+        timeStart = Math.floor(Date.now() / 1000);
     } else {
         questionDiv.classList.add('hidden');
         endingDiv.classList.remove('hidden');
