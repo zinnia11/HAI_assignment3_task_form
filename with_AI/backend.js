@@ -258,8 +258,8 @@ next_button.addEventListener('click', () => {
             showSuggestion();
         });
         timeEnd = Math.floor(Date.now() / 1000);
-        const time_elapsed = (timeEnd-timeStart).toString();
-        responses[currentIndex].time = time_elapsed;
+        const time_elapsed = (timeEnd-timeStart);
+        responses[currentIndex-1].time = time_elapsed;
         timeStart = Math.floor(Date.now() / 1000);
     } else {
         questionDiv.classList.add('hidden');
