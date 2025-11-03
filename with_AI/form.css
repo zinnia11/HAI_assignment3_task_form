@@ -77,6 +77,9 @@ details {
 .env { 
     background-color: #fff4d0; 
 }
+/* .AI { 
+    background-color: #e0d0ff; 
+} */
 .question {
     text-align: center;
     margin-top: 30px;
@@ -84,6 +87,11 @@ details {
 .next_q{
     display: flex;
     justify-content: right;
+}
+.label_button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
 }
 /* Tooltip container */
 .tooltip {

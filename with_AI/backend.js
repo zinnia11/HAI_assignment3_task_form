@@ -191,21 +191,22 @@ start_button.addEventListener('click', async () => {
     showQuestion(selectedStudents[0], 1);
 });
 
-document.getElementById("suggestion").addEventListener("click", function(event) {
+document.getElementById("suggestion").addEventListener("click", () => {
     // document.getElementById('suggestion').classList.add('hidden');
+    // Change the background color
+    document.getElementById("suggestion").style.backgroundColor = "background-color: #e0d0ff;";
     let student = selectedStudents[currentIndex];
     document.getElementById('AI').innerHTML = `
         <button class="hidden" id="suggestion" style="background-color: transparent;">
           <h3 style="font-size: 18px;">Need Help? Get an AI suggestion.</h3>
         </button>
         <h3>AI Suggestion</h3>
-        <p>Blood pressure: ${
-            student.stress_level_preds == "0" ? "Low Stress" :
+        <h3 style="text-align: center;">${student.stress_level_preds == "0" ? "Low Stress" :
             student.stress_level_preds == "1" ? "Medium Stress" :
             student.stress_level_preds == "2" ? "High Stress" :
             "Unknown"}
-        </p>`;
-        label_buttons.forEach(button => {button.disabled = false;})
+        </h3>`;
+    label_buttons.forEach(button => {button.disabled = false;})
 });
 
 // record which label is clicked for which question, updates at each new click until the next question button is pressed
@@ -237,7 +238,13 @@ next_button.addEventListener('click', () => {
             top: 0,
             left: 0,
             behavior: 'auto' // Use 'auto' for an instant jump
-          });
+        });
+        // return to asking for AI suggestion
+        document.getElementById('AI').innerHTML = `
+        <button id="suggestion" style="background-color: transparent;">
+        <h3 style="font-size: 18px;">Need Help? Get an AI suggestion.</h3>
+        </button>`
+        document.getElementById("suggestion").style.backgroundColor = "background-color: transparent;";
     } else {
         questionDiv.classList.add('hidden');
         endingDiv.classList.remove('hidden');
