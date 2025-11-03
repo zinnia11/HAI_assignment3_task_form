@@ -166,7 +166,7 @@ function makeID(length) {
 const user = makeID(10);
 
 async function submitResponses() {
-    const url = "https://script.google.com/macros/s/AKfycbzA368VH5Wcfh5uFNfWBVKWNbm6uDQ1sNBN_9BAQM0lePIrLLcc7yzZTwBDKTY7HzSpAA/exec";
+    const url = "https://script.google.com/macros/s/AKfycbxAgTwVnaIgDwQ9-D1KHq2ex8q2ryFgZ-JuAUgG0r_f9rnuE20Lao1fjwvrmw5k-t5AmQ/exec";
   
     try {
       const res = await fetch(url, {
@@ -258,7 +258,7 @@ next_button.addEventListener('click', () => {
         endingDiv.classList.remove('hidden');
         document.getElementById('userID').innerHTML = `
             <p style="font-size: 20px"><strong>User ID:</strong> ${user}</p>`
-        responsesDisplay.textContent = JSON.stringify(responses, null, 2);
+        // responsesDisplay.textContent = JSON.stringify(responses, null, 2);
         submitResponses();
     }
 });
