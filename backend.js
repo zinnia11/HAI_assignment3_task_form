@@ -82,7 +82,7 @@ function showQuestion(student, number) {
     next_button.disabled = true;
 
     document.getElementById('studentHeader').textContent =
-        `Question ${number}/20`;
+        `Question ${number}/25`;
 
     document.getElementById('psych').innerHTML = `
         <span class="tooltiptext">
@@ -190,7 +190,7 @@ async function submitResponses() {
 start_button.addEventListener('click', async () => {
     students = await loadCSV();
     timeStart = Math.floor(Date.now() / 1000);
-    selectedStudents = randomSample(students, 20);
+    selectedStudents = randomSample(students, 25);
     introDiv.classList.add('hidden');
     questionDiv.classList.remove('hidden');
     showQuestion(selectedStudents[0], 1);
@@ -213,22 +213,22 @@ label_buttons.forEach(button => {
 });
 
 // moves to the next question by showing the next sampled data point
-// if all 20 are done, hides the question interface and shows the ending screen
+// if all 25 are done, hides the question interface and shows the ending screen
 next_button.addEventListener('click', () => {
     // remove selected button after clicking next
     document.querySelector('.special')?.classList.remove('special');
 
+    timeEnd = Math.floor(Date.now() / 1000);
+    const time_elapsed = (timeEnd-timeStart);
+    responses[currentIndex-1].time = time_elapsed;
     currentIndex++;
-    if (currentIndex < 20) {
+    if (currentIndex < 25) {
         showQuestion(selectedStudents[currentIndex], currentIndex + 1);
         window.scrollTo({
             top: 0,
             left: 0,
             behavior: 'auto' // Use 'auto' for an instant jump
         });
-        timeEnd = Math.floor(Date.now() / 1000);
-        const time_elapsed = (timeEnd-timeStart);
-        responses[currentIndex-1].time = time_elapsed;
         timeStart = Math.floor(Date.now() / 1000);
     } else {
         questionDiv.classList.add('hidden');
