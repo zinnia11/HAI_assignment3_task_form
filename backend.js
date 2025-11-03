@@ -220,7 +220,7 @@ next_button.addEventListener('click', () => {
 
     timeEnd = Math.floor(Date.now() / 1000);
     const time_elapsed = (timeEnd-timeStart);
-    responses[currentIndex].time = time_elapsed;
+    responses[currentIndex].time = time_elapsed.toString();
     currentIndex++;
     if (currentIndex < 25) {
         showQuestion(selectedStudents[currentIndex], currentIndex + 1);
