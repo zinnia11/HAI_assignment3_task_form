@@ -193,6 +193,10 @@ start_button.addEventListener('click', async () => {
 });
 
 document.getElementById("suggestion").addEventListener("click", () => {
+    showSuggestion();
+});
+
+function showSuggestion() {
     // document.getElementById('suggestion').classList.add('hidden');
     // Change the background color
     document.getElementById("AI").style.backgroundColor = "#e0d0ff";
@@ -202,13 +206,13 @@ document.getElementById("suggestion").addEventListener("click", () => {
           <h3 style="font-size: 18px;">Need Help? Get an AI suggestion.</h3>
         </button>
         <h3>AI Suggestion</h3>
-        <h3 style="text-align: center;">${student.stress_level_preds == "0" ? "Low Stress" :
+        <h2 style="text-align: center;">${student.stress_level_preds == "0" ? "Low Stress" :
             student.stress_level_preds == "1" ? "Medium Stress" :
             student.stress_level_preds == "2" ? "High Stress" :
             "Unknown"}
-        </h3>`;
+        </h2>`;
     label_buttons.forEach(button => {button.disabled = false;})
-});
+}
 
 // record which label is clicked for which question, updates at each new click until the next question button is pressed
 label_buttons.forEach(button => {
@@ -242,10 +246,13 @@ next_button.addEventListener('click', () => {
         });
         // return to asking for AI suggestion
         document.getElementById('AI').innerHTML = `
-        <button id="suggestion" style="background-color: transparent;">
-        <h3 style="font-size: 18px;">Need Help? Get an AI suggestion.</h3>
-        </button>`
+            <button id="suggestion" style="background-color: transparent;">
+            <h3 style="font-size: 18px;">Need Help? Get an AI suggestion.</h3>
+            </button>`
         document.getElementById("AI").style.backgroundColor = "transparent";
+        document.getElementById("suggestion").addEventListener("click", () => {
+            showSuggestion();
+        });
     } else {
         questionDiv.classList.add('hidden');
         endingDiv.classList.remove('hidden');
