@@ -81,14 +81,26 @@ function showQuestion(student, number) {
     document.getElementById('studentHeader').textContent =
         `Question ${number}/20`;
 
-    document.getElementById('psych').innerHTML += `
+    document.getElementById('psych').innerHTML = `
+        <span class="tooltiptext">
+            <strong>Anxiety level:</strong> Score from the GAD-7 scale with higher meaning more anxiety, 0-21 <br>
+            <strong>Self esteem:</strong> Score from RSES with higher meaning more self esteem, 0-30 <br>
+            <strong>Mental health history:</strong> If there was past history of mental health conditions <br>
+            <strong>Depression:</strong> Score from PHQ-9 with higher meaning more symptoms of depression, 0-27
+        </span>
         <h3>Psychological Factors</h3>
         <p>Anxiety level: ${student.anxiety_level} ${numberLine(student.anxiety_level, "anxiety_level")}</p>
         <p>Self esteem: ${student.self_esteem} ${numberLine(student.self_esteem, "self_esteem")}</p>
         <p>Mental health history: ${student.mental_health_history == "1" ? "History present" : "No history"} ${numberLine(student.mental_health_history, "mental_health_history")}</p>
         <p>Depression: ${student.depression} ${numberLine(student.depression, "depression")}</p>`;
 
-    document.getElementById('phys').innerHTML += `
+    document.getElementById('phys').innerHTML = `
+        <span class="tooltiptext">
+            <strong>Headache:</strong> Frequency the student is experiencing headaches, higher is more often <br>
+            <strong>Blood pressure:</strong> Subjective scale of low, average, and high <br>
+            <strong>Sleep quality:</strong> Quality of sleep, higher is better quality <br>
+            <strong>Breathing problem:</strong> Frequency the student is experiencing breathing problems, higher is more often
+        </span>
         <h3>Physiological Factors</h3>
         <p>Headache: ${student.headache} ${numberLine(student.headache, "headache")}</p>
         <p>Blood pressure: ${
@@ -100,21 +112,39 @@ function showQuestion(student, number) {
         <p>Sleep quality: ${student.sleep_quality} ${numberLine(student.sleep_quality, "sleep_quality")}</p>
         <p>Breathing problem: ${student.breathing_problem} ${numberLine(student.breathing_problem, "breathing_problem")}</p>`;
 
-    document.getElementById('env').innerHTML += `
+    document.getElementById('env').innerHTML = `
+        <span class="tooltiptext">
+            <strong>Noise level:</strong> Amount of noise in the student's environment, higher is more noise<br>
+            <strong>Living conditions:</strong> Quality of living environment, higher is better conditions<br>
+            <strong>Safety:</strong> How safe the student feels in their environment, higher is safer <br>
+            <strong>Basic needs:</strong> How much student's basic needs are being met, higher is better
+        </span>
         <h3>Environmental Factors</h3>
         <p>Noise level: ${student.noise_level} ${numberLine(student.noise_level, "noise_level")}</p>
         <p>Living conditions: ${student.living_conditions} ${numberLine(student.living_conditions, "living_conditions")}</p>
         <p>Safety: ${student.safety} ${numberLine(student.safety, "safety")}</p>
         <p>Basic needs: ${student.basic_needs} ${numberLine(student.basic_needs, "basic_needs")}</p>`;
 
-    document.getElementById('acad').innerHTML += `
+    document.getElementById('acad').innerHTML = `
+        <span class="tooltiptext">
+            <strong>Academic performance:</strong> How well the student is doing academically, higher is better academics<br>
+            <strong>Study load:</strong> How much homework and studying the student has to do, higher is more study work<br>
+            <strong>Teacher student relationship:</strong> Quality of teacher-student relationships from the perspective of the student, higher is stronger relationships <br>
+            <strong>Future career concerns:</strong> How much the student worries about the future, higher is more concerns
+        </span>
         <h3>Academic Factors</h3>
         <p>Academic performance: ${student.academic_performance} ${numberLine(student.academic_performance, "academic_performance")}</p>
         <p>Study load: ${student.study_load} ${numberLine(student.study_load, "study_load")}</p>
         <p>Teacher student relationship: ${student.teacher_student_relationship} ${numberLine(student.teacher_student_relationship, "teacher_student_relationship")}</p>
         <p>Future career concerns: ${student.future_career_concerns} ${numberLine(student.future_career_concerns, "future_career_concerns")}</p>`;
 
-    document.getElementById('social').innerHTML += `
+    document.getElementById('social').innerHTML = `
+        <span class="tooltiptext">
+            <strong>Social support:</strong> How much support the student recieves from their social relationships, higher is more support<br>
+            <strong>Peer pressure:</strong> How much the student is feeling pressure from their peers, higher is more pressure <br>
+            <strong>Extracurricular activities:</strong> How many extracurricular activities the student participates in <br>
+            <strong>Bullying:</strong> How much bullying the student is recieving, higher is worse bullying
+        </span>
         <h3>Social Factors</h3>
         <p>Social support: ${student.social_support} ${numberLine(student.social_support, "social_support")}</p>
         <p>Peer pressure: ${student.peer_pressure} ${numberLine(student.peer_pressure, "peer_pressure")}</p>
@@ -162,13 +192,11 @@ start_button.addEventListener('click', async () => {
 });
 
 document.getElementById("suggestion").addEventListener("click", function(event) {
-    event.preventDefault(); // prevents the page from jumping or reloading
-    showSuggestion();
-});
-
-function showSuggestion() {
     document.getElementById('suggestion').classList.add('hidden');
-    document.getElementById('AI').innerHTML += `
+    document.getElementById('AI').innerHTML = `
+        <button class="hidden" id="suggestion" style="background-color: transparent;">
+          <h3 style="font-size: 18px;">Need Help? Get an AI suggestion.</h3>
+        </button>
         <h3>AI Suggestion</h3>
         <p>Blood pressure: ${
             student.stress_level_preds == "0" ? "Low Stress" :
@@ -177,7 +205,7 @@ function showSuggestion() {
             "Unknown"}
         </p>`;
         label_buttons.forEach(button => {button.disabled = false;})
-}
+});
 
 // record which label is clicked for which question, updates at each new click until the next question button is pressed
 label_buttons.forEach(button => {
