@@ -206,9 +206,7 @@ label_buttons.forEach(button => {
         const label = button.getAttribute('data-label');
         const i = selectedStudents[currentIndex].index; 
 
-        timeEnd = Math.floor(Date.now() / 1000);
-        const time_elapsed = (timeEnd-timeStart).toString();
-        responses[currentIndex] = {userID: user, csvIndex: i, label: label, time: time_elapsed};
+        responses[currentIndex] = {userID: user, csvIndex: i, label: label};
         // enable next button when a button is selected here
         next_button.disabled = false;
     });
@@ -227,7 +225,10 @@ next_button.addEventListener('click', () => {
             top: 0,
             left: 0,
             behavior: 'auto' // Use 'auto' for an instant jump
-          });
+        });
+        timeEnd = Math.floor(Date.now() / 1000);
+        const time_elapsed = (timeEnd-timeStart).toString();
+        responses[currentIndex].time = time_elapsed;
         timeStart = Math.floor(Date.now() / 1000);
     } else {
         questionDiv.classList.add('hidden');

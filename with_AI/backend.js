@@ -228,8 +228,7 @@ label_buttons.forEach(button => {
         const label = button.getAttribute('data-label');
         const i = selectedStudents[currentIndex].index; 
 
-        timeEnd = Math.floor(Date.now() / 1000);
-        responses[currentIndex] = {userID: user, csvIndex: i, label: label, time: (timeEnd-timeStart)};
+        responses[currentIndex] = {userID: user, csvIndex: i, label: label};
         // enable next button when a button is selected here
         next_button.disabled = false;
     });
@@ -258,6 +257,9 @@ next_button.addEventListener('click', () => {
         document.getElementById("suggestion").addEventListener("click", () => {
             showSuggestion();
         });
+        timeEnd = Math.floor(Date.now() / 1000);
+        const time_elapsed = (timeEnd-timeStart).toString();
+        responses[currentIndex].time = time_elapsed;
         timeStart = Math.floor(Date.now() / 1000);
     } else {
         questionDiv.classList.add('hidden');
