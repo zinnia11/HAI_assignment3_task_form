@@ -195,7 +195,7 @@ start_button.addEventListener('click', async () => {
 document.getElementById("suggestion").addEventListener("click", () => {
     // document.getElementById('suggestion').classList.add('hidden');
     // Change the background color
-    document.getElementByClassName("AI").style.backgroundColor = "background-color: #e0d0ff;";
+    document.getElementsByClassName("AI").style.backgroundColor = "background-color: #e0d0ff;";
     let student = selectedStudents[currentIndex];
     document.getElementById('AI').innerHTML = `
         <button class="hidden" id="suggestion" style="background-color: transparent;">
@@ -245,7 +245,7 @@ next_button.addEventListener('click', () => {
         <button id="suggestion" style="background-color: transparent;">
         <h3 style="font-size: 18px;">Need Help? Get an AI suggestion.</h3>
         </button>`
-        document.getElementByClassName("AI").style.backgroundColor = "background-color: transparent;";
+        document.getElementsByClassName("AI").style.backgroundColor = "background-color: transparent;";
     } else {
         questionDiv.classList.add('hidden');
         endingDiv.classList.remove('hidden');
