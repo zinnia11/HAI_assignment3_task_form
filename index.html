@@ -85,46 +85,11 @@
         </details>
         <p>If you need further explanation of the factors, hover over each box.</p>
         <div class="container">
-            <div class="category psych tooltip" id="psych">
-                <span class="tooltiptext">
-                    <strong>Anxiety level:</strong> Score from the GAD-7 scale with higher meaning more anxiety, 0-21 <br>
-                    <strong>Self esteem:</strong> Score from RSES with higher meaning more self esteem, 0-30 <br>
-                    <strong>Mental health history:</strong> If there was past history of mental health conditions <br>
-                    <strong>Depression:</strong> Score from PHQ-9 with higher meaning more symptoms of depression, 0-27
-                </span>
-            </div>
-            <div class="category phys tooltip" id="phys">
-                <span class="tooltiptext">
-                    <strong>Headache:</strong> Frequency the student is experiencing headaches, higher is more often <br>
-                    <strong>Blood pressure:</strong> Subjective scale of low, average, and high <br>
-                    <strong>Sleep quality:</strong> Quality of sleep, higher is better quality <br>
-                    <strong>Breathing problem:</strong> Frequency the student is experiencing breathing problems, higher is more often
-                </span>
-            </div>
-            <div class="category env tooltip" id="env">
-                <span class="tooltiptext">
-                    <strong>Noise level:</strong> Amount of noise in the student's environment, higher is more noise<br>
-                    <strong>Living conditions:</strong> Quality of living environment, higher is better conditions<br>
-                    <strong>Safety:</strong> How safe the student feels in their environment, higher is safer <br>
-                    <strong>Basic needs:</strong> How much student's basic needs are being met, higher is better
-                </span>
-            </div>
-            <div class="category acad tooltip" id="acad">
-                <span class="tooltiptext">
-                    <strong>Academic performance:</strong> How well the student is doing academically, higher is better academics<br>
-                    <strong>Study load:</strong> How much homework and studying the student has to do, higher is more study work<br>
-                    <strong>Teacher student relationship:</strong> Quality of teacher-student relationships from the perspective of the student, higher is stronger relationships <br>
-                    <strong>Future career concerns:</strong> How much the student worries about the future, higher is more concerns
-                </span>
-            </div>
-            <div class="category social tooltip" id="social">
-                <span class="tooltiptext">
-                    <strong>Social support:</strong> How much support the student recieves from their social relationships, higher is more support<br>
-                    <strong>Peer pressure:</strong> How much the student is feeling pressure from their peers, higher is more pressure <br>
-                    <strong>Extracurricular activities:</strong> How many extracurricular activities the student participates in <br>
-                    <strong>Bullying:</strong> How much bullying the student is recieving, higher is worse bullying
-                </span>
-            </div>
+            <div class="category psych tooltip" id="psych"></div>
+            <div class="category phys tooltip" id="phys"></div>
+            <div class="category env tooltip" id="env"></div>
+            <div class="category acad tooltip" id="acad"></div>
+            <div class="category social tooltip" id="social"></div>
         </div>
 
         <div class="question">
@@ -145,8 +110,7 @@
         <p>You have completed all 25 questions.</p>
         <p>Please copy the survey ID below and submit it in the Amazon MTurk inferface.</p>
         <div id="userID"></div>
-        <!-- <p>Your responses are shown below (you can copy them):</p>
-        <pre id="responsesDisplay"></pre> -->
+        <!-- <pre id="responsesDisplay"></pre> -->
     </div>
 
     <script defer src="backend.js"></script>
