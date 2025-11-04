@@ -189,7 +189,7 @@ async function submitResponses() {
 // when pressed, hides the intro section and shows the first question
 start_button.addEventListener('click', async () => {
     students = await loadCSV();
-    timeStart = Math.floor(Date.now() / 1000);
+    timeStart = (Date.now() / 1000);
     selectedStudents = randomSample(students, 25);
     introDiv.classList.add('hidden');
     questionDiv.classList.remove('hidden');
@@ -240,7 +240,7 @@ next_button.addEventListener('click', () => {
     // remove selected button after clicking next
     document.querySelector('.special')?.classList.remove('special');
 
-    timeEnd = Math.floor(Date.now() / 1000);
+    timeEnd = (Date.now() / 1000);
     const time_elapsed = (timeEnd-timeStart);
     responses[currentIndex].time = time_elapsed.toString();
     currentIndex++;
@@ -260,7 +260,7 @@ next_button.addEventListener('click', () => {
         document.getElementById("suggestion").addEventListener("click", () => {
             showSuggestion();
         });
-        timeStart = Math.floor(Date.now() / 1000);
+        timeStart = (Date.now() / 1000);
     } else {
         questionDiv.classList.add('hidden');
         endingDiv.classList.remove('hidden');
